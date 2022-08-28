@@ -29,7 +29,7 @@ static inline void uart_tx_program_init(PIO pio, uint8_t sm, uint32_t offset, ui
 
     pio_sm_config c = uart_tx_program_get_default_config(offset);
 
-    // OUT shifts to right, no autopull
+    // OUT shifts to right, no auto pull
     sm_config_set_out_shift(&c, true, false, 32);
 
     // We are mapping both OUT and side-set to the same pin, because sometimes

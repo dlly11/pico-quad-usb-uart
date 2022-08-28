@@ -9,7 +9,7 @@
 ; Minimum viable 8n1 UART receiver. Wait for the start bit, then sample 8 bits
 ; with the correct timing.
 ; IN pin 0 is mapped to the GPIO used as UART RX.
-; Autopush must be enabled, with a threshold of 8.
+; Auto push must be enabled, with a threshold of 8.
 
     wait 0 pin 0        ; Wait for start bit
     set x, 7 [10]       ; Preload bit counter, delay until eye of first data bit
@@ -28,7 +28,7 @@ static inline void uart_rx_mini_program_init(PIO pio, uint sm, uint offset, uint
 
     pio_sm_config c = uart_rx_mini_program_get_default_config(offset);
     sm_config_set_in_pins(&c, pin); // for WAIT, IN
-    // Shift to right, autopush enabled
+    // Shift to right, auto push enabled
     sm_config_set_in_shift(&c, true, true, 8);
     sm_config_set_fifo_join(&c, PIO_FIFO_JOIN_RX);
     // SM transmits 1 bit per 8 execution cycles.
@@ -71,7 +71,7 @@ static inline void uart_rx_program_init(PIO pio, uint8_t sm, uint32_t offset, ui
     pio_sm_config c = uart_rx_program_get_default_config(offset);
     sm_config_set_in_pins(&c, pin); // for WAIT, IN
     sm_config_set_jmp_pin(&c, pin); // for JMP
-    // Shift to right, autopush disabled
+    // Shift to right, auto push disabled
     sm_config_set_in_shift(&c, true, false, 32);
     // Deeper FIFO as we're not doing any TX
     sm_config_set_fifo_join(&c, PIO_FIFO_JOIN_RX);

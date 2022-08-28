@@ -88,7 +88,7 @@ static PIO pio_uart_tx = pio1;
 static uint32_t rx_pio_offset;
 static uint32_t tx_pio_offset;
 
-// Databits tiny usb cdc to rpi pico mapping
+// Data bits tiny usb cdc to rpi pico mapping
 static inline uint8_t databits_usb2uart(uint8_t data_bits)
 {
   switch (data_bits)
@@ -122,7 +122,7 @@ static inline uart_parity_t parity_usb2uart(uint8_t usb_parity)
   }
 }
 
-// Stopbits tiny usb cdc to rpi pico mapping
+// Stop bits tiny usb cdc to rpi pico mapping
 static inline uint stopbits_usb2uart(uint8_t stop_bits)
 {
   switch (stop_bits)
@@ -340,7 +340,7 @@ void init_uart_data(uint8_t itf)
   case UART0_ID_NUM:
   case UART1_ID_NUM:
     const hard_uart_id_t *hard_ui = &HARD_UART_ID[itf];
-    /* Pinmux */
+    /* Pin mux */
     gpio_set_function(hard_ui->hard_tx_pin, GPIO_FUNC_UART);
     gpio_set_function(hard_ui->hard_rx_pin, GPIO_FUNC_UART);
     /* UART start */
