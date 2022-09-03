@@ -123,7 +123,7 @@ static inline uart_parity_t parity_usb2uart(uint8_t usb_parity)
 }
 
 // Stop bits tiny usb cdc to rpi pico mapping
-static inline uint stopbits_usb2uart(uint8_t stop_bits)
+static inline uint32_t stopbits_usb2uart(uint8_t stop_bits)
 {
   switch (stop_bits)
   {
@@ -170,6 +170,8 @@ void update_uart_cfg(uint8_t itf)
 
     mutex_exit(&ud->lc_mtx);
     break;
+
+    // TODO: Add PIO re-config support
 
   default:
     break;
@@ -363,7 +365,9 @@ void init_uart_data(uint8_t itf)
 
 void core_0_app_init(void)
 {
+  set_sys_clock_khz(270000, false);
   board_init();
+
   rx_pio_offset = pio_add_program(pio_uart_rx, &uart_rx_program);
   tx_pio_offset = pio_add_program(pio_uart_tx, &uart_tx_program);
 
